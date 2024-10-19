@@ -1,0 +1,95 @@
+{% extends "layout.html" %}
+{% block content %}
+<div class="container">
+  <div class="title">
+    <h1>API Documentation</h1>
+    <p>
+      Welcome to the API documentation for our wine quality prediction.
+    </p>
+  </div>
+  <div class="endpoints">
+    <div class="flex">
+      <div class="flex_1">
+        <h2>
+          Endpoints
+        </h2>
+      </div>
+      <div class="flex_2">
+        <p class="post">
+          POST /prediction
+        </p>
+        <p>
+            This endpoint allows you to make a prediction of the salary amount (in dollars) according to the year.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="how">
+    <div class="flex">
+      <div class="flex_1">
+        <h2>
+          How to request this endpoint?
+        </h2>
+      </div>
+      <div class="flex_2">
+        <p>
+          You should request this endpoint using a POST method with a JSON content. Your JSON should contain at least "input" key with associated value of all the wine indicators in the format:
+        </p>
+        <p>
+          [[float]]
+        </p>
+        <p class='exemple'>
+        Example:
+        <br>
+        <code>curl -i -H "Content-Type: application/json" -X POST -d '{
+            "input": [[7.0, 0.27, 0.36, 20.7, 0.045, 45.0, 170.0, 1.001, 3.0, 0.45, 8.8]]
+        }' http://127.0.0.1:4000/predict
+        </code>
+        </p>
+        <div class="centre">
+          <p>
+            It returns a JSON like so:
+            <pre><code class="code">{"quality": [6]}</code></pre>
+          </p>
+        </div>
+        <div class="centre">
+          <p>
+            Also, if you wish, you can put multiple inputs at once:
+          </p>
+          <p class='exemple'>
+            Example:
+            <br>
+            <code>curl -i -H "Content-Type: application/json" -X POST -d '{
+                "input": [[7.0, 0.27, 0.36, 20.7, 0.045, 45.0, 170.0, 1.001, 3.0, 0.45, 8.8], [5.0, 0.98, 0.32, 18.9, 0.050, 75.0, 122.0, 0.401, 3.1, 0.21, 1.2]]
+                }' http://127.0.0.1:4000/predict
+            </code>
+            </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="error">
+    <div class="flex">
+      <div class="flex_1">
+        <h2>
+          errors
+        </h2>
+      </div>
+      <div class="flex_2">
+          <p>
+            Our API will return an error with format:
+            <pre class="format"><code>{<br>"code": HTTP status code,<br>"name": name of this error,<br>"description":a short description<br>}<code></pre>
+          </p>
+          <p>
+            Identified errors:
+            <ul>
+              <li>Missing JSON</li>
+              <li>Missing key "input"</li>
+            </ul>
+          </p>
+        
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
